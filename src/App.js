@@ -19,6 +19,8 @@ class App extends Component {
           >
             Learn React
           </a>
+          <div class="alert alert-danger" role="alert">Fuck!</div>
+
         </header>
       </div>
     );
