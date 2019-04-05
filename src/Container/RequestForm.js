@@ -28,6 +28,18 @@ class RequestForm extends Component {
     }
   }
 
+  validateRecords = () => {
+    const { requestRecord } = this.props
+    const { email, serviceRequest } = this.state
+
+    return Object.keys(requestRecord).length > 0 && requestRecord[email].includes(serviceRequest)
+    ? this.setState({ serverError: {  
+                          code: undefined, 
+                          message: {message: "This user has already submitted a service request of this type."} } 
+    })
+    : this.handleSubmit()
+  }
+
   validateFields = () => {
     var allowSubmission = true;
     var validationError = {}
@@ -64,7 +76,7 @@ class RequestForm extends Component {
     }
 
     return allowSubmission
-    ? this.handleSubmit()
+    ? this.validateRecords()
     : this.setState({validationError: validationError})
   }
 
