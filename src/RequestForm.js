@@ -10,9 +10,7 @@ class RequestForm extends Component {
     email: "",
     serviceRequest: undefined,
     bodyRequest: "",
-    checkboxTerms: false,
-    response: undefined,
-    error: {},
+    checkboxTerms: false
   }
 
   displayMessage = (input) => {
@@ -70,13 +68,7 @@ class RequestForm extends Component {
     
     let valid = {error: await response.ok, code: await response.status}
 
-    if (valid.error) {
-      this.setState({ response: await response.json() })
-    } 
-    else {
-      this.setState({  error: { code: valid.code, 
-                                msg: await response.json() } })
-    }
+    this.props.saveApiResponse(valid, await response.json() )
   }
 
   buildServiceOptionList = () => {
@@ -92,7 +84,6 @@ class RequestForm extends Component {
   }
   
   render() {
-    console.log(this.state.response, "/", this.state.error)
     return (
       <div >   
         <div>New Assistance Request</div>
