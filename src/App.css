@@ -18,11 +18,52 @@
   color: black;
 }
 
+/* FORM */
+
 .form {
+  width: 400px;
+}
+
+.form, 
+.form-group {
   display: flex;
   flex-direction: column;
 }
 
+.form-group {
+  margin: 5px 0px;
+}
+
+.form-group > div:nth-child(1) > input {
+  margin: 5px 0px;
+}
+
 textarea {
   resize: none;
+}
+
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+label {
+  font-size: 10px;
+}
+
+.notes {
+  color: red;
+  font-size: 10px;
+  text-align: right;
+}
+
+.button {
+  align-self: flex-end;
+  width: auto;
+}
+
+.server-error {
+  margin: 20px 0px;
+  font-size: 20px;
+  font-weight: 600;
 }

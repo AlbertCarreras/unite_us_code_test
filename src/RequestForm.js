@@ -16,9 +16,14 @@ class RequestForm extends Component {
   validateFields = () => {
     var allowSubmission = true;
     var validationError = {}
-    if (this.state.firstName === "" || this.state.lastName === "") {
+    if (this.state.firstName === "") {
       allowSubmission = false;
-      validationError["name"] = "First Name and Last Name cannot be blank."
+      validationError["firstName"] = "First Name cannot be blank."
+    }
+
+    if (this.state.lastName === "") {
+      allowSubmission = false;
+      validationError["lastName"] = "Last Name cannot be blank."
     }
     
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.email)) {
@@ -57,9 +62,9 @@ class RequestForm extends Component {
     const { validationError } = this.state
 
     if (validationError !== {} && validationError[field]) {
-      return <div>{validationError[field]}</div>
+      return <div className="notes">{validationError[field]}</div>
     }
-    return <div>required</div>
+    return <div className="notes">required</div>
   }
 
   handleChange = (event) => {
@@ -135,74 +140,87 @@ class RequestForm extends Component {
     };
 
     return (
-      <div > 
-        <h1>{this.displayServerError()}</h1>  
-        <div>New Assistance Request</div>
+      <div> 
         <div className="form">
-              
-          <input 
-            type="text"
-            name="firstName"
-            style={this.state.validationError['name'] ? divStyleError : null} 
-            placeholder="First Name"
-            onChange={ this.handleChange }
-            value={this.state.firstName} />
-
-          <input 
-            type="text" 
-            name="lastName"
-            style={this.state.validationError['name'] ? divStyleError : null} 
-            placeholder="Last Name"
-            onChange={ this.handleChange }
-            value={this.state.lastName} />
-          {this.displayValidationError("name")}
-
-          <input 
-            type="email" 
-            name="email"
-            style={this.state.validationError['email'] ? divStyleError : null} 
-            placeholder="Email Address"
-            onChange={ this.handleChange }
-            value={this.state.email} />
-          {this.displayValidationError("email")}
-
-          <select
-            name="serviceRequest"
-            style={this.state.validationError['service'] ? divStyleError : null} 
-            onChange={ this.handleChange }
-            value={this.state.serviceRequest}>
-              <option value="">Select Service Type</option>
-              {this.buildServiceOptionList()}
-          </select>
-          {this.displayValidationError("service")}
+        <div className="server-error">{this.displayServerError()}</div>  
+        <div>New Assistance Request</div>
           
-          <textarea 
-            name="bodyRequest"
-            style={this.state.validationError['description'] ? divStyleError : null} 
-            placeholder="Provide information about your request"
-            rows="5" 
-            cols="20"
-            onChange={ this.handleChange }
-            value={this.state.bodyRequest}>
-          </textarea>
-          {this.displayValidationError("description")}
+          <div className="form-group">
+              <input 
+                type="text"
+                name="firstName"
+                style={this.state.validationError['firstName'] ? divStyleError : null} 
+                placeholder="First Name"
+                onChange={ this.handleChange }
+                value={this.state.firstName} />
+                {this.displayValidationError("firstName")}
+          </div>
 
-          <input 
-            type="checkbox"
-            name="checkboxTerms"  
-            id="checkboxTerms"
-            onChange={ this.handleChange }
-            checked={this.state.checkboxTerms}/>
-          <label
-            style={this.state.validationError['checkbox'] ? divStyleError : null} 
-            htmlFor="checkboxTerms">I hereby accept the terms of service for THE NETWORK and the privacy policy.</label>
+          <div className="form-group">
+              <input 
+                type="text" 
+                name="lastName"
+                style={this.state.validationError['lastName'] ? divStyleError : null} 
+                placeholder="Last Name"
+                onChange={ this.handleChange }
+                value={this.state.lastName} />
+              {this.displayValidationError("lastName")}
+            </div>
+
+            <div className="form-group">
+              <input 
+                type="email" 
+                name="email"
+                style={this.state.validationError['email'] ? divStyleError : null} 
+                placeholder="Email Address"
+                onChange={ this.handleChange }
+                value={this.state.email} />
+              {this.displayValidationError("email")}
+            </div>
+
+            <div className="form-group">
+              <select
+                name="serviceRequest"
+                style={this.state.validationError['service'] ? divStyleError : null} 
+                onChange={ this.handleChange }
+                value={this.state.serviceRequest}>
+                  <option value="">Select Service Type</option>
+                  {this.buildServiceOptionList()}
+              </select>
+              {this.displayValidationError("service")}
+            </div>
+          
+            <div className="form-group">
+              <textarea 
+                name="bodyRequest"
+                style={this.state.validationError['description'] ? divStyleError : null} 
+                placeholder="Provide information about your request"
+                rows="5" 
+                cols="20"
+                onChange={ this.handleChange }
+                value={this.state.bodyRequest}>
+              </textarea>
+              {this.displayValidationError("description")}
+            </div>
+
+          <div className="checkbox">
+            <input 
+              type="checkbox"
+              name="checkboxTerms"  
+              id="checkboxTerms"
+              onChange={ this.handleChange }
+              checked={ this.state.checkboxTerms }/>
+            <label
+              style={this.state.validationError['checkbox'] ? divStyleError : null} 
+              htmlFor="checkboxTerms">I hereby accept the terms of service for THE NETWORK and the privacy policy.</label>
+          </div>
 
           <input 
             className="button"
             type="button" 
             value="Get Assistance" 
             onClick={this.validateFields}/>
-          </div>
+        </div>
       </div>
     );
   }
