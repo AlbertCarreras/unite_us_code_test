@@ -54,7 +54,9 @@ class RequestForm extends Component {
   displayServerError = () => {
     const error = this.state.serverError 
     return error
-      ? <div>{error.message.message}</div>
+      ? <div 
+        className="server-error">{error.message.message}
+        </div>
       : null
   }
 
@@ -62,7 +64,7 @@ class RequestForm extends Component {
     const { validationError } = this.state
 
     if (validationError !== {} && validationError[field]) {
-      return <div className="notes">{validationError[field]}</div>
+      return <div className="field-notes">{validationError[field]}</div>
     }
     return <div className="field-notes">required</div>
   }
@@ -142,7 +144,7 @@ class RequestForm extends Component {
     return (
       <div> 
         <div className="form-container flex-column">
-        <div className="server-error">{this.displayServerError()}</div>  
+        {this.displayServerError()}  
         <div>New Assistance Request</div>
           
           <div className="flex-column form-group">
@@ -195,7 +197,7 @@ class RequestForm extends Component {
                 name="bodyRequest"
                 style={this.state.validationError['description'] ? divStyleError : null} 
                 placeholder="Provide information about your request"
-                maxlength="600"
+                maxLength="600"
                 rows="10" 
                 cols="20"
                 onChange={ this.handleChange }
