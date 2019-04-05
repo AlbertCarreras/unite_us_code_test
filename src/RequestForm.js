@@ -117,8 +117,11 @@ class RequestForm extends Component {
         this.props.saveApiResponse(await response.json())
     } 
     else {
-        this.setState({  serverError: { code: valid.errorCode, 
-                                        message: await response.json() } })
+        this.setState({  
+          validationError: {},
+          serverError: {  code: valid.errorCode, 
+                          message: await response.json() } 
+        })
       }
   }
 
