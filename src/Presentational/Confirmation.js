@@ -2,7 +2,7 @@ import React from 'react';
 
 const Confirmation = props => {
 
-  const { confirmationMsg } = props
+  const { confirmationMsg, submitNewRequest } = props
   const { echo, message } = confirmationMsg
     
     return (
@@ -19,7 +19,7 @@ const Confirmation = props => {
             className="button"
             type="button" 
             value="Submit New Request" 
-            onClick={() => this.props.submitNewRequest(null)}/>
+            onClick={() => submitNewRequest(null)}/>
       </div>
     );
 }

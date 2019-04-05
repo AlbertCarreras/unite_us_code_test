@@ -13,6 +13,18 @@ class RequestForm extends Component {
     validationError: {}
   }
 
+  buildServiceOptionList = () => {
+    const { serviceTypes } = this.props
+    if (serviceTypes.length > 0) {
+      return serviceTypes.map( item => {
+        return <option 
+                  key={item.id} 
+                  value={item.display_name}>{item.display_name}
+                  </option>
+      })
+    }
+  }
+
   validateFields = () => {
     var allowSubmission = true;
     var validationError = {}
@@ -49,15 +61,6 @@ class RequestForm extends Component {
     return allowSubmission
     ? this.handleSubmit()
     : this.setState({validationError: validationError})
-  }
-
-  displayServerError = () => {
-    const error = this.state.serverError 
-    return error
-      ? <div 
-        className="server-error">{error.message.message}
-        </div>
-      : null
   }
 
   displayValidationError = (field) => {
@@ -125,16 +128,13 @@ class RequestForm extends Component {
       }
   }
 
-  buildServiceOptionList = () => {
-    const { serviceTypes } = this.props
-    if (serviceTypes.length > 0) {
-      return serviceTypes.map( item => {
-        return <option 
-                  key={item.id} 
-                  value={item.display_name}>{item.display_name}
-                  </option>
-      })
-    }
+  displayServerError = () => {
+    const error = this.state.serverError 
+    return error
+      ? <div 
+        className="server-error">{error.message.message}
+        </div>
+      : null
   }
   
   render() {

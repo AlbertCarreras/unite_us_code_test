@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RequestForm from './RequestForm'
-import Confirmation from './Confirmation'
+import Confirmation from '../Presentational/Confirmation'
 
 class RequestContainer extends Component {  
 

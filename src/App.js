@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+import './css/App.css';
 
-import NavBar from './NavBar'
-import FormApp from './FormApp'
+import NavBar from './Presentational/NavBar'
+import FormApp from './Container/FormApp'
 
 class App extends Component {
 
