@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 
-
 let map = {}
 
 class RequestForm extends Component {
 
-  state={
+  state = {
     firstName: "",
     lastName: "",
     email: "",
     serviceRequest: undefined,
     bodyRequest: "",
-    checkboxTerms: false
+    checkboxTerms: false,
+    response: undefined,
+    error: {},
   }
 
   displayMessage = (input) => {
@@ -22,6 +23,7 @@ class RequestForm extends Component {
         return "required"
     }
   }
+
 
   handleChange = (event) => {
     const {target} = event
@@ -36,6 +38,47 @@ class RequestForm extends Component {
       });
   }
 
+  handleSubmit = async () => {
+
+    const POST = 'POST'
+
+    const HEADERS = { 
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache"
+    }
+
+    let body = JSON.stringify(
+      {
+        "assistance_request": {
+          "contact": {
+            "first_name": this.state.firstName,
+            "last_name": this.state.lastName,
+            "email": this.state.email
+          },
+          "service_type": this.state.serviceRequest,
+          "description": this.state.bodyRequest
+        }
+      }      
+    )
+
+    let response = await fetch("http://localhost:49567/api/assistance-requests", {
+      method: POST,
+      headers: HEADERS,
+      body: body
+      })
+    
+    let valid = {error: await response.ok, code: await response.status}
+
+    if (valid.error) {
+      this.setState({ response: await response.json() })
+    } 
+    else {
+      this.setState({  error: { code: valid.code, 
+                                msg: await response.json() } })
+    }
+  }
+
   buildServiceOptionList = () => {
     const { serviceTypes } = this.props
     if (serviceTypes.length > 0) {
@@ -45,18 +88,13 @@ class RequestForm extends Component {
                   value={item.display_name}>{item.display_name}
                   </option>
       })
-    } else {
-
     }
   }
   
-  componentDidUpdate(prevProps) {
-    
-  }
-
   render() {
+    console.log(this.state.response, "/", this.state.error)
     return (
-      <div >
+      <div >   
         <div>New Assistance Request</div>
         <div className="form">
               
@@ -111,8 +149,7 @@ class RequestForm extends Component {
             className="button"
             type="button" 
             value="Get Assistance" 
-            onClick={this.handleChange}/>
-
+            onClick={this.handleSubmit}/>
           </div>
       </div>
     );

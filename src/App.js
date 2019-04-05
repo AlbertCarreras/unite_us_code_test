@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import NavBar from './NavBar'
-import RequestForm from './RequestForm'
+import RequestContainer from './RequestContainer'
 
 class App extends Component {
 
@@ -19,14 +19,13 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.serviceTypes)
     return (
       <div className="App">
         <header className="App-body">
           <NavBar />
           { this.state.serviceTypes.length > 0 
-            ? <RequestForm 
-            serviceTypes={this.state.serviceTypes} /> 
+            ? <RequestContainer 
+                serviceTypes={this.state.serviceTypes} />
             : null
           }
         </header>
