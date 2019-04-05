@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-body">
+        <header className="flex-column App-body">
           <NavBar />
           { this.state.serviceTypes.length > 0 
             ? <RequestContainer 

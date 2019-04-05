@@ -10,36 +10,33 @@
   padding: 15px;
   box-sizing: border-box;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   font-size: calc(10px + 2vmin);
   color: black;
 }
 
-/* FORM */
-
-.form {
-  width: 400px;
-}
-
-.form, 
-.form-group {
+.flex-column {
   display: flex;
   flex-direction: column;
 }
 
-.form-group {
-  margin: 5px 0px;
-}
-
-.form-group > div:nth-child(1) > input {
-  margin: 5px 0px;
-}
+/* FORM */
 
 textarea {
   resize: none;
+}
+
+label {
+  font-size: 10px;
+}
+
+.form-container {
+  width: 400px;
+}
+
+.form-group {
+  margin: 5px 0px;
 }
 
 .checkbox {
@@ -47,17 +44,15 @@ textarea {
   justify-content: center;
   align-content: center;
 }
-label {
-  font-size: 10px;
-}
 
-.notes {
+.field-notes {
   color: red;
   font-size: 10px;
   text-align: right;
 }
 
 .button {
+  margin-top: 10px;
   align-self: flex-end;
   width: auto;
 }
@@ -66,4 +61,10 @@ label {
   margin: 20px 0px;
   font-size: 20px;
   font-weight: 600;
+}
+
+.confirmation-note{
+  font-size: 10px;
+  padding: 10px;
+  background: lightblue;
 }

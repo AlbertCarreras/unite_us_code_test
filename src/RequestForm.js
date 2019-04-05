@@ -64,7 +64,7 @@ class RequestForm extends Component {
     if (validationError !== {} && validationError[field]) {
       return <div className="notes">{validationError[field]}</div>
     }
-    return <div className="notes">required</div>
+    return <div className="field-notes">required</div>
   }
 
   handleChange = (event) => {
@@ -141,11 +141,11 @@ class RequestForm extends Component {
 
     return (
       <div> 
-        <div className="form">
+        <div className="form-container flex-column">
         <div className="server-error">{this.displayServerError()}</div>  
         <div>New Assistance Request</div>
           
-          <div className="form-group">
+          <div className="flex-column form-group">
               <input 
                 type="text"
                 name="firstName"
@@ -156,7 +156,7 @@ class RequestForm extends Component {
                 {this.displayValidationError("firstName")}
           </div>
 
-          <div className="form-group">
+          <div className="flex-column form-group">
               <input 
                 type="text" 
                 name="lastName"
@@ -167,7 +167,7 @@ class RequestForm extends Component {
               {this.displayValidationError("lastName")}
             </div>
 
-            <div className="form-group">
+            <div className="flex-column form-group">
               <input 
                 type="email" 
                 name="email"
@@ -178,7 +178,7 @@ class RequestForm extends Component {
               {this.displayValidationError("email")}
             </div>
 
-            <div className="form-group">
+            <div className="flex-column form-group">
               <select
                 name="serviceRequest"
                 style={this.state.validationError['service'] ? divStyleError : null} 
@@ -190,12 +190,13 @@ class RequestForm extends Component {
               {this.displayValidationError("service")}
             </div>
           
-            <div className="form-group">
+            <div className="flex-column form-group">
               <textarea 
                 name="bodyRequest"
                 style={this.state.validationError['description'] ? divStyleError : null} 
                 placeholder="Provide information about your request"
-                rows="5" 
+                maxlength="600"
+                rows="10" 
                 cols="20"
                 onChange={ this.handleChange }
                 value={this.state.bodyRequest}>
