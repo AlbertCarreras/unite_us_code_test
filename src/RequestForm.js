@@ -36,6 +36,24 @@ class RequestForm extends Component {
       });
   }
 
+  buildServiceOptionList = () => {
+    const { serviceTypes } = this.props
+    if (serviceTypes.length > 0) {
+      return serviceTypes.map( item => {
+        return <option 
+                  key={item.id} 
+                  value={item.display_name}>{item.display_name}
+                  </option>
+      })
+    } else {
+
+    }
+  }
+  
+  componentDidUpdate(prevProps) {
+    
+  }
+
   render() {
     return (
       <div >
@@ -68,10 +86,7 @@ class RequestForm extends Component {
             onChange={ this.handleChange }
             value={this.state.serviceRequest}>
               <option value="">Select Service Type</option>
-              <option value="volvo">Volvo</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
+              {this.buildServiceOptionList()}
           </select>
           
           <textarea 
@@ -97,7 +112,7 @@ class RequestForm extends Component {
             type="button" 
             value="Get Assistance" 
             onClick={this.handleChange}/>
-            
+
           </div>
       </div>
     );
