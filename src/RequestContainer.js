@@ -6,25 +6,13 @@ class RequestContainer extends Component {
 
   state = {
     response: null,
-    error: {},
   }
 
-  saveApiResponse = (valid, response) => {
-    if (valid.error) {
-      this.setState({ response: response })
-    } 
-    else {
-      this.setState({  error: { code: valid.code, 
-                                msg: response } })
-    }
-  }
-
-  submitNewRequest = () => {
-    this.setState({  response: null })
+  saveApiResponse = (response) => {
+      this.setState({  response: response })
   }
 
   render() {
-    console.log(this.state.response, "/", this.state.error)
     return (
       <div>
           { !this.state.response ?
@@ -34,7 +22,7 @@ class RequestContainer extends Component {
                 />
             : <Confirmation 
                 confirmationMsg={this.state.response}
-                submitNewRequest={this.submitNewRequest}
+                submitNewRequest={this.saveApiResponse}
             />}
       </div>
     );

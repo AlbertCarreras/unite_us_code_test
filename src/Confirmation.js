@@ -18,7 +18,7 @@ class Confirmation extends Component {
             className="button"
             type="button" 
             value="Submit New Response" 
-            onClick={this.props.submitNewRequest}/>
+            onClick={() => this.props.submitNewRequest(null)}/>
       </div>
     );
   }
