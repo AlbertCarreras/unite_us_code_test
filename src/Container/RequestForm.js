@@ -10,7 +10,8 @@ class RequestForm extends Component {
     bodyRequest: "",
     checkboxTerms: false,
     serverError: null,
-    validationError: {}
+    validationError: {},
+    disabledBtn: false
   }
 
   buildServiceOptionList = () => {
@@ -93,6 +94,8 @@ class RequestForm extends Component {
     const {target} = event
     const {name, value} = target
 
+    if (this.state.disabledBtn) this.toggleBtn() 
+
     name === "checkboxTerms" 
     ? this.setState({
       checkboxTerms: !this.state.checkboxTerms
@@ -101,6 +104,8 @@ class RequestForm extends Component {
         [name]: value,
       });
   }
+
+  toggleBtn = () => this.setState({disabledBtn: !this.state.disabledBtn})
 
   handleSubmit = async () => {
 
@@ -140,11 +145,12 @@ class RequestForm extends Component {
         this.props.saveApiResponse(await response.json())
     } 
     else {
+        this.toggleBtn();
         this.setState({  
           validationError: {},
           serverError: {  code: valid.errorCode, 
                           message: await response.json() } 
-        })
+        });
       }
   }
 
@@ -245,9 +251,11 @@ class RequestForm extends Component {
 
           <input 
             className="button"
+            disabled={this.state.disabledBtn}
             type="button" 
             value="Get Assistance" 
-            onClick={ this.validateFields }/>
+            onClick={ () => { this.toggleBtn(); 
+                              this.validateFields(); }}/>
         </div>
       </div>
     );
