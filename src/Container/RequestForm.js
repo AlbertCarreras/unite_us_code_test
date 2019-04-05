@@ -15,11 +15,14 @@ class RequestForm extends Component {
 
   buildServiceOptionList = () => {
     const { serviceTypes } = this.props
+
     if (serviceTypes.length > 0) {
       return serviceTypes.map( item => {
+        const {id, display_name} = item
+
         return <option 
-                  key={item.id} 
-                  value={item.display_name}>{item.display_name}
+                  key={id} 
+                  value={display_name}>{display_name}
                   </option>
       })
     }
@@ -28,32 +31,34 @@ class RequestForm extends Component {
   validateFields = () => {
     var allowSubmission = true;
     var validationError = {}
-    if (this.state.firstName === "") {
+    const {firstName, lastName, email, serviceRequest, bodyRequest, checkboxTerms} = this.state
+
+    if (firstName === "") {
       allowSubmission = false;
       validationError["firstName"] = "First Name cannot be blank."
     }
 
-    if (this.state.lastName === "") {
+    if (lastName === "") {
       allowSubmission = false;
       validationError["lastName"] = "Last Name cannot be blank."
     }
     
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.email)) {
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
       allowSubmission = false;
       validationError["email"] = "Invalid email address format."
     }
     
-    if ((this.state.serviceRequest === undefined)) {
+    if ((serviceRequest === undefined)) {
       allowSubmission = false;
       validationError["service"] = "A service type must be selected."
     }
     
-    if ((this.state.bodyRequest === "")) {
+    if ((bodyRequest === "")) {
       allowSubmission = false;
       validationError["description"] = "A description must be provided."
     }
 
-    if (!(this.state.checkboxTerms)) {
+    if (!(checkboxTerms)) {
       allowSubmission = false;
       validationError["checkbox"] = "You must accept to terms and conditions."
     }
@@ -75,6 +80,7 @@ class RequestForm extends Component {
   handleChange = (event) => {
     const {target} = event
     const {name, value} = target
+
     name === "checkboxTerms" 
     ? this.setState({
       checkboxTerms: !this.state.checkboxTerms
@@ -94,16 +100,18 @@ class RequestForm extends Component {
       "Cache-Control": "no-cache"
     }
 
-    let body = JSON.stringify(
+    const {firstName, lastName, email, serviceRequest, bodyRequest} = this.state
+
+    const body = JSON.stringify(
       {
         "assistance_request": {
           "contact": {
-            "first_name": this.state.firstName,
-            "last_name": this.state.lastName,
-            "email": this.state.email
+            "first_name": firstName,
+            "last_name": lastName,
+            "email": email
           },
-          "service_type": this.state.serviceRequest,
-          "description": this.state.bodyRequest
+          "service_type": serviceRequest,
+          "description": bodyRequest
         }
       }      
     )
@@ -130,6 +138,7 @@ class RequestForm extends Component {
 
   displayServerError = () => {
     const error = this.state.serverError 
+
     return error
       ? <div 
         className="server-error">{error.message.message}
@@ -138,6 +147,7 @@ class RequestForm extends Component {
   }
   
   render() {
+    const {validationError, firstName, lastName, email, serviceRequest, bodyRequest, checkboxTerms } = this.state
 
     const divStyleError = {
       border: '1px solid red',
@@ -147,66 +157,66 @@ class RequestForm extends Component {
     return (
       <div> 
         <div className="form-container flex-column">
-        {this.displayServerError()}  
+        { this.displayServerError() }  
         <div>New Assistance Request</div>
           
           <div className="flex-column form-group">
               <input 
                 type="text"
                 name="firstName"
-                style={this.state.validationError['firstName'] ? divStyleError : null} 
+                style={ validationError['firstName'] ? divStyleError : null } 
                 placeholder="First Name"
                 onChange={ this.handleChange }
-                value={this.state.firstName} />
-                {this.displayValidationError("firstName")}
+                value={ firstName } />
+                { this.displayValidationError("firstName") }
           </div>
 
           <div className="flex-column form-group">
               <input 
                 type="text" 
                 name="lastName"
-                style={this.state.validationError['lastName'] ? divStyleError : null} 
+                style={ validationError['lastName'] ? divStyleError : null } 
                 placeholder="Last Name"
                 onChange={ this.handleChange }
-                value={this.state.lastName} />
-              {this.displayValidationError("lastName")}
+                value={ lastName } />
+              { this.displayValidationError("lastName") }
             </div>
 
             <div className="flex-column form-group">
               <input 
                 type="email" 
                 name="email"
-                style={this.state.validationError['email'] ? divStyleError : null} 
+                style={ validationError['email'] ? divStyleError : null } 
                 placeholder="Email Address"
                 onChange={ this.handleChange }
-                value={this.state.email} />
-              {this.displayValidationError("email")}
+                value={ email } />
+              { this.displayValidationError("email") }
             </div>
 
             <div className="flex-column form-group">
               <select
                 name="serviceRequest"
-                style={this.state.validationError['service'] ? divStyleError : null} 
+                style={ validationError['service'] ? divStyleError : null } 
                 onChange={ this.handleChange }
-                value={this.state.serviceRequest}>
+                value={ serviceRequest }>
                   <option value="">Select Service Type</option>
-                  {this.buildServiceOptionList()}
+                  { this.buildServiceOptionList() }
               </select>
-              {this.displayValidationError("service")}
+              { this.displayValidationError("service") }
             </div>
           
             <div className="flex-column form-group">
               <textarea 
                 name="bodyRequest"
-                style={this.state.validationError['description'] ? divStyleError : null} 
+                style={ validationError['description'] ? divStyleError : null } 
                 placeholder="Provide information about your request"
                 maxLength="600"
                 rows="10" 
                 cols="20"
                 onChange={ this.handleChange }
-                value={this.state.bodyRequest}>
+                value={ bodyRequest }>
               </textarea>
-              {this.displayValidationError("description")}
+              { this.displayValidationError("description") }
             </div>
 
           <div className="checkbox">
@@ -215,9 +225,9 @@ class RequestForm extends Component {
               name="checkboxTerms"  
               id="checkboxTerms"
               onChange={ this.handleChange }
-              checked={ this.state.checkboxTerms }/>
+              checked={ checkboxTerms }/>
             <label
-              style={this.state.validationError['checkbox'] ? divStyleError : null} 
+              style={ this.state.validationError['checkbox'] ? divStyleError : null } 
               htmlFor="checkboxTerms">I hereby accept the terms of service for THE NETWORK and the privacy policy.</label>
           </div>
 
@@ -225,7 +235,7 @@ class RequestForm extends Component {
             className="button"
             type="button" 
             value="Get Assistance" 
-            onClick={this.validateFields}/>
+            onClick={ this.validateFields }/>
         </div>
       </div>
     );
