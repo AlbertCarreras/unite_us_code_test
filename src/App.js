@@ -11,7 +11,7 @@ class App extends Component {
       <div className="App">
         <header className="flex-column App-body">
           <NavBar />
-              <FormApp />
+          <FormApp />
         </header>
       </div>
     );

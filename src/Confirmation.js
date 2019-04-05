@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Confirmation extends Component {
-  
-  render() {
-    const { confirmationMsg } = this.props
-    const { echo, message } = confirmationMsg
+const Confirmation = props => {
 
+  const { confirmationMsg } = props
+  const { echo, message } = confirmationMsg
+    
     return (
       <div className="form-container flex-column">   
         <div className="server-error">{message}</div>
@@ -23,7 +22,6 @@ class Confirmation extends Component {
             onClick={() => this.props.submitNewRequest(null)}/>
       </div>
     );
-  }
 }
 
 export default Confirmation;
