@@ -1,8 +1,14 @@
 import React, { Component, Fragment } from 'react';
 
+//IMPORT ADAPTERS
+import { APIRequest } from '../Adapters/ApiRequest'
+
+//IMPORT COMPONENTS
 import RequestContainer from './RequestContainer'
 
 class FormApp extends Component {
+
+  _isMounted = false;
 
   state = {
     serviceTypes:[],
@@ -10,14 +16,24 @@ class FormApp extends Component {
   }
 
   stateUpdater(type, response) {
-    return { [type]: response.data };
+      return { [type]: response.data };
   }
 
   componentDidMount() {
-    fetch("http://localhost:49567/api/service-types")
-      .then(resp => resp.json())
-      .then(resp => this.setState(this.stateUpdater("serviceTypes", resp)))
-      .catch( e => this.setState(this.stateUpdater("error", e)))
+    this._isMounted = true;
+
+    APIRequest("service_type").then(resp => {
+      if (this._isMounted) {
+        this.setState(this.stateUpdater("serviceTypes", resp))
+      }})
+      .catch( e => {
+        if (this._isMounted) {
+          this.setState(this.stateUpdater("error", e))
+      }})
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+
+//IMPORT ADAPTERS
+import { APIRequest } from '../Adapters/ApiRequest'
 import library from '../Adapters/Library'
+
 
 class RequestForm extends Component {
 
@@ -16,6 +20,7 @@ class RequestForm extends Component {
   }
 
   buildServiceOptionList = () => {
+  
     const { serviceTypes } = this.props
 
     if (serviceTypes.length > 0) {
@@ -87,35 +92,11 @@ class RequestForm extends Component {
 
   handleSubmit = async () => {
 
-    const POST = 'POST'
-
-    const HEADERS = { 
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-      "Cache-Control": "no-cache"
-    }
-
     const {firstName, lastName, email, serviceRequest, bodyRequest} = this.state
 
-    const body = JSON.stringify(
-      {
-        "assistance_request": {
-          "contact": {
-            "first_name": firstName,
-            "last_name": lastName,
-            "email": email
-          },
-          "service_type": serviceRequest,
-          "description": bodyRequest
-        }
-      }      
-    )
+    let data = {firstName, lastName, email, serviceRequest, bodyRequest}
 
-    let response = await fetch("http://localhost:49567/api/assistance-requests", {
-      method: POST,
-      headers: HEADERS,
-      body: body
-      })
+    let response = await APIRequest("assistance-requests", data)
     
     let valid = {success: await response.ok, errorCode: await response.status}
 
