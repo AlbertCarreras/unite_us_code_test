@@ -1,6 +1,6 @@
 import { APIRequest } from '../ApiRequest'
  
-describe('API wRequest adapter', () => {
+describe('API Request adapter', () => {
 
   beforeEach(() => {
     fetch.resetMocks()
