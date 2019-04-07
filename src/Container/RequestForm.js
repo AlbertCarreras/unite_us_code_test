@@ -34,7 +34,7 @@ class RequestForm extends Component {
     const { requestRecord } = this.props
     const { email, serviceRequest } = this.state
 
-    return Object.keys(requestRecord).length > 0 && requestRecord[email].includes(serviceRequest)
+    return Object.keys(requestRecord).length > 0 && requestRecord[email] && requestRecord[email].includes(serviceRequest)
     ? this.setState({ serverError: {  
                           code: undefined, 
                           message: {message: "This user has already submitted a service request of this type."} } 
