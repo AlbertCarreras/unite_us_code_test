@@ -1,4 +1,4 @@
-import library from './Library';
+import library from '../Library';
 
 describe('checks individual field validators', () => {
 
