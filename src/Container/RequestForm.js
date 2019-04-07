@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import library from '../Adapters/Library'
 
 class RequestForm extends Component {
 
@@ -42,44 +43,21 @@ class RequestForm extends Component {
   }
 
   validateFields = () => {
-    var allowSubmission = true;
-    var validationError = {}
-    const {firstName, lastName, email, serviceRequest, bodyRequest, checkboxTerms} = this.state
+    const { firstName, lastName, email, serviceRequest, bodyRequest, checkboxTerms } = this.state
 
-    if (firstName === "") {
-      allowSubmission = false;
-      validationError["firstName"] = "First Name cannot be blank."
-    }
-
-    if (lastName === "") {
-      allowSubmission = false;
-      validationError["lastName"] = "Last Name cannot be blank."
-    }
-    
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-      allowSubmission = false;
-      validationError["email"] = "Invalid email address format."
-    }
-    
-    if ((serviceRequest === undefined)) {
-      allowSubmission = false;
-      validationError["service"] = "A service type must be selected."
-    }
-    
-    if ((bodyRequest === "")) {
-      allowSubmission = false;
-      validationError["description"] = "A description must be provided."
-    }
-
-    if (!(checkboxTerms)) {
-      allowSubmission = false;
-      validationError["checkbox"] = "You must accept to terms and conditions."
-    }
+    const { allowSubmission, validationError } = library.validateFields({
+      firstName, 
+      lastName, 
+      email, 
+      serviceRequest, 
+      bodyRequest, 
+      checkboxTerms})
 
     return allowSubmission
     ? this.validateRecords()
     : this.setState({validationError: validationError})
   }
+  
 
   displayValidationError = (field) => {
     const { validationError } = this.state
