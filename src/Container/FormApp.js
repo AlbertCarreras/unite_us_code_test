@@ -9,15 +9,15 @@ class FormApp extends Component {
     error: null
   }
 
+  stateUpdater(type, response) {
+    return { [type]: response.data };
+  }
+
   componentDidMount() {
     fetch("http://localhost:49567/api/service-types")
       .then(resp => resp.json())
-      .then(resp => this.setState({
-        serviceTypes: resp.data
-      }))
-      .catch( e => this.setState({
-        error: e
-      }))
+      .then(resp => this.setState(this.stateUpdater("serviceTypes", resp)))
+      .catch( e => this.setState(this.stateUpdater("error", e)))
   }
 
   render() {
