@@ -1,11 +1,9 @@
 import React from 'react';
 
-const SelectOption = ({item}) => {
-
-
+const SelectOption = ({data}) => {
     return (
       <option 
-        value={item}>{item}
+        value={data.display_name}>{data.display_name}
       </option>
     );
 }
