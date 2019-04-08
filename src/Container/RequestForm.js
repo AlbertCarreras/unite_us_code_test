@@ -26,9 +26,7 @@ class RequestForm extends Component {
     const { serviceTypes } = this.props
 
     if (serviceTypes.length > 0) {
-      return serviceTypes.map( item => {
-        return <SelectOption key={item.id} data={item.display_name} />
-      })
+      return serviceTypes.map( item => <SelectOption key={item.id} data={item.display_name} />)
     }
   }
 
