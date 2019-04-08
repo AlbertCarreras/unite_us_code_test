@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { APIRequest } from '../Adapters/ApiRequest'
 import library from '../Adapters/Library'
 
+//IMPORT COMPONENT
+import SelectOption from '../Presentational/SelectOption'
 
 class RequestForm extends Component {
 
@@ -25,12 +27,7 @@ class RequestForm extends Component {
 
     if (serviceTypes.length > 0) {
       return serviceTypes.map( item => {
-        const {id, display_name} = item
-
-        return <option 
-                  key={id} 
-                  value={display_name}>{display_name}
-                  </option>
+        return <SelectOption key={item.id} data={item.display_name} />
       })
     }
   }
@@ -152,6 +149,7 @@ class RequestForm extends Component {
               <input 
                 type="text" 
                 name="lastName"
+                aria-label="lastName-input"
                 style={ validationError['lastName'] ? divStyleError : null } 
                 placeholder="Last Name"
                 onChange={ this.handleChange }
