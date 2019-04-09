@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 //IMPORT ADAPTERS
 import { APIRequest } from '../Adapters/ApiRequest'
 import library from '../Adapters/Library'
-import divStyleLibrary from '../Adapters/divStyleLibrary'
+import DivStyleLibrary from '../Adapters/DivStyleLibrary'
 
 //IMPORT COMPONENT
 import SelectOption from '../Presentational/SelectOption'
@@ -145,7 +145,7 @@ class RequestForm extends Component {
               <input 
                 type="text"
                 name="firstName"
-                style={ validationError['firstName'] ? divStyleLibrary.error : null } 
+                style={ validationError['firstName'] ? DivStyleLibrary.error : null } 
                 placeholder="First Name"
                 onChange={ this.handleChange }
                 value={ firstName } />
@@ -157,7 +157,7 @@ class RequestForm extends Component {
                 type="text" 
                 name="lastName"
                 aria-label="lastName-input"
-                style={ validationError['lastName'] ? divStyleLibrary.error : null } 
+                style={ validationError['lastName'] ? DivStyleLibrary.error : null } 
                 placeholder="Last Name"
                 onChange={ this.handleChange }
                 value={ lastName } />
@@ -168,7 +168,7 @@ class RequestForm extends Component {
               <input 
                 type="email" 
                 name="email"
-                style={ validationError['email'] ? divStyleLibrary.error : null } 
+                style={ validationError['email'] ? DivStyleLibrary.error : null } 
                 placeholder="Email Address"
                 onChange={ this.handleChange }
                 value={ email } />
@@ -178,7 +178,7 @@ class RequestForm extends Component {
             <div className="flex-column form-group">
               <select
                 name="serviceRequest"
-                style={ validationError['service'] ? divStyleLibrary.error : null } 
+                style={ validationError['service'] ? DivStyleLibrary.error : null } 
                 onChange={ this.handleChange }
                 value={ serviceRequest }>
                   <option value="">Select Service Type</option>
@@ -190,7 +190,7 @@ class RequestForm extends Component {
             <div className="flex-column form-group">
               <textarea 
                 name="bodyRequest"
-                style={ validationError['description'] ? divStyleLibrary.error : null } 
+                style={ validationError['description'] ? DivStyleLibrary.error : null } 
                 placeholder="Provide information about your request"
                 maxLength="600"
                 rows="10" 
@@ -209,7 +209,7 @@ class RequestForm extends Component {
               onChange={ this.handleChange }
               checked={ checkboxTerms }/>
             <label
-              style={ this.state.validationError['checkbox'] ? divStyleLibrary.error : null } 
+              style={ this.state.validationError['checkbox'] ? DivStyleLibrary.error : null } 
               htmlFor="checkboxTerms">I hereby accept the terms of service for THE NETWORK and the privacy policy.</label>
           </div>
 

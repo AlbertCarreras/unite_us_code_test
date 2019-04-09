@@ -47,7 +47,7 @@ let library = (function () {
                     }
                     break;
                 case "serviceRequest":
-                    if (!library.isOptionSelected(field[1])) {
+                    if (!library.isOptionSelected(field[1]) || !(library.isOptionSelected(field[1]) === "")) {
                         allowSubmission = false;
                         validationError["service"] = "A service type must be selected."
                     }
