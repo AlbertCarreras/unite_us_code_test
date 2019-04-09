@@ -8,6 +8,8 @@ import DivStyleLibrary from '../Styling/DivStyleLibrary'
 
 //IMPORT COMPONENT
 import SelectOption from '../Presentational/SelectOption'
+import ApiMessageError from '../Presentational/ApiMessageError'
+import ValidationMessageError from '../Presentational/ValidationMessageError'
 
 class RequestForm extends Component {
 
@@ -111,16 +113,6 @@ class RequestForm extends Component {
     }
   }
 
-  displayMsgError = () => {
-    const error = this.state.msgError 
-
-    return error
-      ? <div 
-        className="server-error">{error.message.message}
-        </div>
-      : null
-  }
-
   displayValidationError = (field) => {
     const { validationError } = this.state
 
@@ -132,12 +124,13 @@ class RequestForm extends Component {
   
 
   render() {
+
     const {validationError, firstName, lastName, email, serviceRequest, bodyRequest, checkboxTerms } = this.state
 
     return (
       <div> 
         <div className="form-container flex-column">
-        { this.displayMsgError() }  
+        <ApiMessageError msgError={this.state.msgError}/>
         <div>New Assistance Request</div>
           
           <div className="flex-column form-group">
@@ -148,7 +141,10 @@ class RequestForm extends Component {
                 placeholder="First Name"
                 onChange={ this.handleChange }
                 value={ firstName } />
-                { this.displayValidationError("firstName") }
+
+                <ValidationMessageError 
+                  validationError={validationError}
+                  fieldName="firstName"/>
           </div>
 
           <div className="flex-column form-group">
@@ -160,8 +156,11 @@ class RequestForm extends Component {
                 placeholder="Last Name"
                 onChange={ this.handleChange }
                 value={ lastName } />
-              { this.displayValidationError("lastName") }
-            </div>
+
+                <ValidationMessageError 
+                  validationError={validationError}
+                  fieldName="lastName"/>
+                </div>
 
             <div className="flex-column form-group">
               <input 
@@ -171,7 +170,10 @@ class RequestForm extends Component {
                 placeholder="Email Address"
                 onChange={ this.handleChange }
                 value={ email } />
-              { this.displayValidationError("email") }
+                
+                <ValidationMessageError 
+                  validationError={validationError}
+                  fieldName="email"/>
             </div>
 
             <div className="flex-column form-group">
@@ -183,7 +185,9 @@ class RequestForm extends Component {
                   <option value="">Select Service Type</option>
                   {this.buildServiceOptionList()  }
               </select>
-              { this.displayValidationError("service") }
+              <ValidationMessageError 
+                  validationError={validationError}
+                  fieldName="service"/>
             </div>
           
             <div className="flex-column form-group">
@@ -197,7 +201,9 @@ class RequestForm extends Component {
                 onChange={ this.handleChange }
                 value={ bodyRequest }>
               </textarea>
-              { this.displayValidationError("description") }
+              <ValidationMessageError 
+                  validationError={validationError}
+                  fieldName="description"/>
             </div>
 
           <div className="checkbox">
