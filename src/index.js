@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 //IMPORT CSS
-import './css/App.css';
-import './css/index.css';
+import './Styling/App.css';
+import './Styling/index.css';
 
 //IMPORT COMPONENTS
 import App from './App';

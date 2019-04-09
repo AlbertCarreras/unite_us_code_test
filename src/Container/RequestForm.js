@@ -4,11 +4,10 @@ import React, { Component } from 'react';
 //IMPORT ADAPTERS
 import { APIRequest } from '../Adapters/ApiRequest'
 import library from '../Adapters/Library'
-import DivStyleLibrary from '../Adapters/DivStyleLibrary'
+import DivStyleLibrary from '../Styling/DivStyleLibrary'
 
 //IMPORT COMPONENT
 import SelectOption from '../Presentational/SelectOption'
-
 
 class RequestForm extends Component {
 
