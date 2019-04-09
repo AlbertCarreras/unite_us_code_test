@@ -1,3 +1,5 @@
+//library for validating form fields
+
 let library = (function () {
     return {
 

@@ -1,11 +1,14 @@
+//helper function to fetch from API
 export function APIRequest(type, data) {
 
+    //fetches service_types from API
     if (type === 'service_type') {
 
       return  fetch("http://localhost:49567/api/service-types")
               .then(res => res.json())
     } 
 
+    //submits assistance request and returns response
     else if (type === 'assistance-requests') {
 
       const POST = 'POST'

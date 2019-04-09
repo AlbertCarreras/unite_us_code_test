@@ -1,3 +1,4 @@
+//IMPORT MODULES
 import React from 'react';
 
 const Confirmation = ({ confirmationMsg, cleanResponse }) => {

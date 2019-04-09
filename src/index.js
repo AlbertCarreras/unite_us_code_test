@@ -1,6 +1,12 @@
+//IMPORT MODULES
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+//IMPORT CSS
+import './css/App.css';
 import './css/index.css';
+
+//IMPORT COMPONENTS
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 

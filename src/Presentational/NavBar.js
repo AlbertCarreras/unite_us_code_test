@@ -1,4 +1,7 @@
+//IMPORT MODULES
 import React from 'react';
+
+//IMPORT ASSETS
 import logo from '../Assets/logo.png';
 
 const NavBar = () => {

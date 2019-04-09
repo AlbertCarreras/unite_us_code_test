@@ -1,3 +1,4 @@
+//IMPORT MODULES
 import React, { Component, Fragment } from 'react';
 
 //IMPORT ADAPTERS
@@ -5,30 +6,35 @@ import { APIRequest } from '../Adapters/ApiRequest'
 
 //IMPORT COMPONENTS
 import RequestContainer from './RequestContainer'
+import ErrorDown from '../Presentational/ErrorDown'
 
 class FormApp extends Component {
 
+  //_isMounted logic prevents memory leak message displayed during testing.
   _isMounted = false;
 
   state = {
     serviceTypes:[],
-    error: null
+    error: false
   }
 
   stateUpdater(type, response) {
-      return { [type]: response.data };
+      return { [type]: response };
   }
 
   componentDidMount() {
     this._isMounted = true;
 
-    APIRequest("service_type").then(resp => {
-      if (this._isMounted) {
-        this.setState(this.stateUpdater("serviceTypes", resp))
-      }})
+    //Component calls api after mounting to get service types list.
+    APIRequest("service_type")
+      .then(resp => {
+        if (this._isMounted) {
+          this.setState(this.stateUpdater("serviceTypes", resp.data))
+        }})
+      //catches if error from API not running  
       .catch( e => {
         if (this._isMounted) {
-          this.setState(this.stateUpdater("error", e))
+          this.setState(this.stateUpdater("error", e.message))
       }})
   }
 
@@ -37,14 +43,15 @@ class FormApp extends Component {
   }
 
   render() {
+    const { serviceTypes } = this.state
     return (
           <Fragment>
-          { !this.state.error
-            ? this.state.serviceTypes.length > 0 
+          { this.state.error
+            ? <ErrorDown component="Service Request Form"/>
+            : this.state.serviceTypes.length > 0 
               ? <RequestContainer 
-                      serviceTypes={this.state.serviceTypes} />
+                      serviceTypes={serviceTypes} />
               : null
-            : <div className="form-container server-error">Apologies. The Service Request Form is not available. <br/><br/>Our team is working to solve it. </div>
           }
           </Fragment>
 

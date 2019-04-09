@@ -1,3 +1,4 @@
+//IMPORT MODULES
 import React from 'react';
 
 const SelectOption = ({data}) => {
@@ -8,4 +9,4 @@ const SelectOption = ({data}) => {
     );
 }
 
-export default SelectOption;
+export default SelectOption; 

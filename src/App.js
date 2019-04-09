@@ -1,7 +1,7 @@
+//IMPORT MODULES
 import React, { Component } from 'react';
 
-import './css/App.css';
-
+//IMPORT COMPONENTS
 import NavBar from './Presentational/NavBar'
 import FormApp from './Container/FormApp'
 
