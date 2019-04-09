@@ -13,11 +13,11 @@ Code organization
 - The code is organized in functional folders: container components (./Container), presentational components (./Presentational), libraries and other reusable code (./Adapters), css files and inline style variables (./Styling), and images (./Assets)
 
 App design
-- The main reusable component is the independent component "<FormApp />" which is used inside <App />. <App /> simulates a general site with header or <NavBar />.
-- <FormApp /> fetches from API service_type after mounting. The app does not use Redux to centralize state (which would be required in a larger application). Instead, it passes state as props to subcomponents. If the API response is not successful, <FormApp /> does not render <RequestContainer />, instead displays an error message.
-- <RequestContainer /> renders <RequestForm /> which is the component containing the form input fields.  <RequestContainer /> handles responses after <RequestForm /> submits requests to API. If successful, it renders <Confirmation /> instead of <RequestForm />.  <RequestContainer /> also stores a record of all successful responses to prevent double requesting.
-<FormApp />'s and <RequestContainer />'s local state and logic could be moved to the store using Redux as well as some of the logic to the Actions (with Thunk for async functions), making components lighter. It would make the code mode organized, readable, and reusable.
-- <RequestForm /> handles the logic for the form (validating input, validation no-repeated requests, and error responses.)
+- The main reusable component is the independent component `<FormApp />` which is used inside `<App />`. `<App />` simulates a general site with header or `<NavBar />`.
+- `<FormApp />` fetches from API service_type after mounting. The app does not use Redux to centralize state (which would be required in a larger application). Instead, it passes state as props to subcomponents. If the API response is not successful, `<FormApp />` does not render `<RequestContainer />`, instead displays an error message.
+- `<RequestContainer />` renders `<RequestForm />` which is the component containing the form input fields.  `<RequestContainer />` handles responses after `<RequestForm />` submits requests to API. If successful, it renders `<Confirmation />` instead of `<RequestForm />`.  `<RequestContainer />` also stores a record of all successful responses to prevent double requesting.
+`<FormApp />`'s and `<RequestContainer />`'s local state and logic could be moved to the store using Redux as well as some of the logic to the Actions (with Thunk for async functions), making components lighter. It would make the code mode organized, readable, and reusable.
+- `<RequestForm />` handles the logic for the form (validating input, validation no-repeated requests, and error responses.)
 
 #### Set up
 1. Clone repo.
