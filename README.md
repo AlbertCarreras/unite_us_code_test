@@ -32,7 +32,8 @@ Notes on tests:
 - Used built-in Jest testing functionality, `jest-fetch-mock` for implementing async tests with mock responses, and `react-testing-library` for testing some component units. 
 - Implemented some micro and functional tests for the `ApiRequest`'s and `Library`'s functions.
 - Async testing on `ApiRequest` mocking fetching.
-- No integration testing was implemented.
+- No unit component or integration testing was implemented.
+- Pending building tests (couldn't put more time this week)
 
 ### Back-end 
 #### Running the Mock API
