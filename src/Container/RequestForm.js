@@ -7,9 +7,9 @@ import library from '../Adapters/Library'
 import DivStyleLibrary from '../Styling/DivStyleLibrary'
 
 //IMPORT COMPONENT
-import SelectOption from '../Presentational/SelectOption'
 import ApiMessageError from '../Presentational/ApiMessageError'
 import ValidationMessageError from '../Presentational/ValidationMessageError'
+import ServiceOptionsSelect from '../Presentational/ServiceOptionsSelect'
 
 class RequestForm extends Component {
 
@@ -105,27 +105,10 @@ class RequestForm extends Component {
       }
   }
 
-  //JSX RETURNING FUNCTIONS 
-  buildServiceOptionList = () => {
-    const { serviceTypes } = this.props
-    if (serviceTypes.length > 0) {
-      return serviceTypes.map( item => <SelectOption key={item.id} data={item} /> )
-    }
-  }
-
-  displayValidationError = (field) => {
-    const { validationError } = this.state
-
-    if (validationError !== {} && validationError[field]) {
-      return <div className="field-notes">{validationError[field]}</div>
-    }
-    return <div className="field-notes">required</div>
-  }
-  
-
   render() {
 
     const {validationError, firstName, lastName, email, serviceRequest, bodyRequest, checkboxTerms } = this.state
+    const { serviceTypes } = this.props
 
     return (
       <div> 
@@ -183,8 +166,9 @@ class RequestForm extends Component {
                 onChange={ this.handleChange }
                 value={ serviceRequest }>
                   <option value="">Select Service Type</option>
-                  {this.buildServiceOptionList()  }
+                  <ServiceOptionsSelect serviceTypes={serviceTypes} />
               </select>
+
               <ValidationMessageError 
                   validationError={validationError}
                   fieldName="service"/>
