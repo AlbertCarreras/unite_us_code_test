@@ -33,7 +33,7 @@ Notes on tests:
 - Implemented some micro and functional tests for the `ApiRequest`'s and `Library`'s functions.
 - Async testing on `ApiRequest` mocking fetching.
 - No unit component or integration testing was implemented.
-- Pending building tests (couldn't put more time this week)
+- Pending building tests (couldn't put more time this week, required some research)
 
 ### Back-end 
 #### Running the Mock API
